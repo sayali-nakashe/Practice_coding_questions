@@ -11,7 +11,7 @@ def licenseKeyFormatting(S, K):
     s = S[::-1].upper().replace('-', '')   
     print(list(chunks(s, K)))
     return '-'.join(list(chunks(s, K)))[::-1]
-
+l
 S = "5F3Z-2e-9-w"
 K = 4
 print(S[::-1])

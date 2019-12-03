@@ -7,6 +7,9 @@ class Node:
         self.random = random
 """
 class Solution:
+    
+    # Solution 1  with TC = O(N) and SC = O(N) 
+    
     def copyRandomList(self, head: 'Node') -> 'Node':
         """dict with old Nodes as keys and new Nodes as values. Doing so allows us to create node's next and random as we iterate through the list from head to tail. Otherwise, we need to go through the list backwards.
         defaultdict() is an efficient way of handling missing keys """ 
@@ -21,3 +24,41 @@ class Solution:
             orig = orig.next
         return dcopy[head]
         
+        
+   # Solution 2  with TC = O(N) and SC = O(1) 
+        
+   def copyRandomList(self, head: 'Node') -> 'Node':
+        
+        if not head:
+            return head
+        
+        orig = head
+        while orig:
+            new_node = Node(orig.val,None,None)
+            new_node.next = orig.next
+            orig.next = new_node
+            
+            orig = orig.next.next
+            
+        orig = head
+        while orig:
+            if orig.random:
+                orig.next.random = orig.random.next
+            else:
+                orig.next.random = None
+            orig = orig.next.next
+        
+        orig = head
+        clone = orig.next
+        clone_head = orig.next
+        while orig:
+            
+            orig.next = orig.next.next
+            if clone.next:
+                clone.next = clone.next.next
+            else:
+                clone.next = None
+            orig = orig.next
+            clone = clone.next
+            
+        return clone_head
